@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7gKdm+POCRNmFWFeTDhUXVJ3tbmIQ+DbBlzyffH6PV0=",
+  "Source": "LoanAppBackend",
+  "BasePath": "_content/LoanAppBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
