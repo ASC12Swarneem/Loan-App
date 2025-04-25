@@ -26,11 +26,7 @@ namespace LoanAppBackend.Models
             public byte[] PasswordSalt { get; set; }
 
 
-        //[Required]
-        //public string PasswordHash { get; set; }
-
-
-        [Required]
+            [Required]  
             [RegularExpression("Admin|User", ErrorMessage = "Role must be either Admin or User")]
             public string Role { get; set; } = "User";
 

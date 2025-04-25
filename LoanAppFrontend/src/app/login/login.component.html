@@ -1,0 +1,19 @@
+<form [formGroup]="loginForm" (ngSubmit)="Login()">
+  <h1>Login</h1>
+    <input type="email" formControlName="email" placeholder="Enter registered email">
+    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Please enter a valid email.
+      </div>
+    
+      <input type="password" formControlName="password" placeholder="Password" />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password is required.
+      </div>
+    
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+      <re-captcha 
+        siteKey="6Lf7QBsrAAAAAEfzNFBw5rTwRvZFdz5WJrzSPwcc"   
+        (resolved)="onCaptchaResolved($event)">
+    </re-captcha>
+</form>

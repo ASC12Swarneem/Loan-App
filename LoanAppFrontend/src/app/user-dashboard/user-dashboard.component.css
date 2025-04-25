@@ -1,0 +1,48 @@
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fefefe;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table thead th {
+    background-color: #f8f9fa;
+    color: #444;
+    font-weight: 600;
+    padding: 12px;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  .table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    color: #333;
+    vertical-align: middle;
+  }
+  
+  p {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+    font-style: italic;
+  }
+  

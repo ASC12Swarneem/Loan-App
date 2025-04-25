@@ -4,12 +4,12 @@ using LoanAppBackend.DTO;
 using LoanAppBackend.Models;
 using LoanAppBackend.Repository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanAppBackend.Controllers
 {
-    [Microsoft.AspNetCore.Components.Route("api/[controller]")]
+    //[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     public class LoanController : ControllerBase
     {
@@ -21,10 +21,9 @@ namespace LoanAppBackend.Controllers
             _loanApplicationRepository = loanApplicationRepository;
         }
 
-        // 🟡 Apply for a loan (using DTO)
         [HttpPost("apply")]
         [Authorize]
-        public async Task<IActionResult> ApplyLoan([FromBody] LoanApplicationDTO loanDto)
+        public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanDTO loanDto)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
@@ -43,7 +42,8 @@ namespace LoanAppBackend.Controllers
             return Ok(result);
         }
 
-        // 🟡 Get my own loans
+
+        // Get my own loans
         [HttpGet("my-loans")]
         [Authorize]
         public async Task<IActionResult> GetMyLoans()
@@ -51,7 +51,6 @@ namespace LoanAppBackend.Controllers
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
             var loans = await _loanApplicationRepository.GetLoanByUerIdAsync(userId);
 
-            // Map to LoanApplicationDTO, excluding MonthlyIncome and CreditScore
             var loanDtos = loans.Select(loan => new LoanApplicationDTO
             {
                 Id = loan.Id,
@@ -62,12 +61,11 @@ namespace LoanAppBackend.Controllers
                 MonthlyIncome = loan.MonthlyIncome,
                 CreditScore = loan.CreditScore,
                 ApplicationDate = loan.ApplicationDate,
-                FullName = loan.User.FullName,  // Fetch FullName from the related User entity
-                Email = loan.User.Email         // Fetch Email from the related User entity
+                FullName = loan.User.FullName,  
+                Email = loan.User.Email        
             }).ToList();
 
             return Ok(loanDtos);
-            //return Ok(loans);
         }
 
         // 🟢 Admin only - Get all loans
@@ -87,13 +85,18 @@ namespace LoanAppBackend.Controllers
                 Status = loan.Status,
                 AdminRemarks = loan.AdminRemarks,
                 ApplicationDate = loan.ApplicationDate,
-                FullName = loan.User.FullName,  // Fetch FullName from the related User entity
-                Email = loan.User.Email         // Fetch Email from the related User entity
+                //FullName = loan.User.FullName,  
+                //Email = loan.User.Email
+                //
+                // Safely access User properties using the null-conditional operator
+                FullName = loan.User?.FullName ?? "Unknown",  // Default to "Unknown" if User is null
+                Email = loan.User?.Email ?? "Unknown"
             }).ToList();
 
             return Ok(loanDtos);
         }
 
+        // Loan id
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateLoan(int id, [FromBody] UpdateLoanDTO dto)
@@ -135,19 +138,65 @@ namespace LoanAppBackend.Controllers
             return Ok(loanDtos);
         }
 
+        //[HttpGet("admin-dashboard")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> GetAdminDashboard([FromQuery] string? status = null)
+        //{
+        //    var userId = GetUserIdFromToken();
+        //    var loans = await _loanApplicationRepository.GetAllLoansAsync(userId);
+        //    if (!string.IsNullOrWhiteSpace(status))
+        //    {
+        //        loans = loans.Where(l => l.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+        //    }
+        //    return Ok(loans);
+        //}
+
+
+        //[HttpGet("admin-dashboard")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> GetAdminDashboard(string? status = null)
+        //{
+        //    var allLoans = await _loanApplicationRepository.GetAllLoansAsync();
+
+        //    if (!string.IsNullOrEmpty(status))
+        //    {
+        //        allLoans = allLoans
+        //            .Where(l => string.Equals(l.Status, status, StringComparison.OrdinalIgnoreCase))
+        //            .ToList();
+        //    }
+
+        //    return Ok(allLoans);
+        //}
+
+
+
         [HttpGet("admin-dashboard")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAdminDashboard([FromQuery] string? status = null)
+        public async Task<IActionResult> GetAdminDashboard(string? status = null)
         {
-            var userId = GetUserIdFromToken();
-            var loans = await _loanApplicationRepository.GetAllLoansAsync(userId);
-            if (!string.IsNullOrWhiteSpace(status))
-            {
-                loans = loans.Where(l => l.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
-            }
-            return Ok(loans);
-        }
+            var allLoans = await _loanApplicationRepository.GetAllLoansAsync();
 
+            if (!string.IsNullOrEmpty(status))
+            {
+                allLoans = allLoans
+                    .Where(l => string.Equals(l.Status, status, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            var loanDtos = allLoans.Select(loan => new LoanApplicationDTO
+            {
+                Id = loan.Id,
+                Amount = loan.Amount,
+                TermInMonths = loan.TermInMonths,
+                Status = loan.Status,
+                AdminRemarks = loan.AdminRemarks,
+                ApplicationDate = loan.ApplicationDate,
+                FullName = loan.User?.FullName ?? "Unknown", // Safely access User properties
+                Email = loan.User?.Email ?? "Unknown"
+            }).ToList();
+
+            return Ok(loanDtos);
+        }
 
         private int GetUserIdFromToken()
         {

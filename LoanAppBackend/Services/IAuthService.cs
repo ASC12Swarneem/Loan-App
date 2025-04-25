@@ -1,4 +1,5 @@
 ﻿using LoanAppBackend.DTO;
+using LoanAppBackend.Models;
 
 namespace LoanAppBackend.Services
 {
@@ -6,5 +7,6 @@ namespace LoanAppBackend.Services
     {
         Task<string> RegisterAsync(RegisterDTO registerDto);
         Task<string> LoginAsync(LoginDTO loginDto);
+        Task<User> GetUserByEmailAsync(string email);
     }
 }

@@ -1,0 +1,30 @@
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <a class="navbar-brand" routerLink="/">LoanApp</a>
+  
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <!-- Admin Links -->
+        <li *ngIf="role === 'Admin'" class="nav-item">
+          <a class="nav-link" routerLink="/admin-dashboard">Dashboard</a>
+        </li>
+        <li *ngIf="role === 'Admin'" class="nav-item">
+          <a class="nav-link" routerLink="/loan-list">Loan List</a>
+        </li>
+  
+        <!-- User Links -->
+        <li *ngIf="role === 'User'" class="nav-item">
+          <a class="nav-link" routerLink="/user-dashboard">My Dashboard</a>
+        </li>
+        <li *ngIf="role === 'User'" class="nav-item">
+          <a class="nav-link" routerLink="/apply-loan">Apply for Loan</a>
+        </li>
+      </ul>
+  
+      <ul class="navbar-nav">
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link text-danger" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  

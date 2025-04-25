@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <h2>Your Loan Applications</h2>
+  <table class="table table-striped" *ngIf="loans.length > 0; else noLoans">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Amount</th>
+        <th>Tenure (months)</th>
+        <th>Interest Rate</th>
+        <th>Status</th>
+        <th>Applied On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loans; let i = index">
+        <td>{{ loan.id }}</td>
+        <td>₹{{ loan.amount }}</td>
+        <td>{{ loan.TermInMonths }}</td>
+        <td>{{ loan.interestRate }}%</td>
+        <td>{{ loan.status }}</td>
+        <td>{{ loan.ApplicationDate | date:'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noLoans>
+    <p>No loan applications found.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2 class="mb-4">List of Loans</h2>
+  
+    <div *ngIf="loans.length === 0">No loans available.</div>
+  
+    <div class="row" *ngIf="loans.length > 0">
+      <div class="col-md-4 mb-4" *ngFor="let loan of loans">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ loan.userName }}</h5>
+            <p class="card-text"><strong>Email:</strong> {{ loan.Email }}</p>
+            <p class="card-text"><strong>Phone:</strong> {{ loan.userPhone }}</p>
+            <p class="card-text"><strong>Salary:</strong> ₹{{ loan.salary }}</p>
+            <p class="card-text"><strong>Loan Amount:</strong> ₹{{ loan.loanAmount }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ loan.status }}</p>
+            <p class="card-text"><strong>Purpose:</strong> {{ loan.purpose }}</p>
+            <p class="card-text"><strong>Duration:</strong> {{ loan.duration }} months</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

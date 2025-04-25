@@ -1,17 +1,15 @@
-﻿using LoanAppBackend.Data;
-using LoanAppBackend.DTO;
-using LoanAppBackend.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
+﻿    using LoanAppBackend.Data;
+    using LoanAppBackend.DTO;
+    using LoanAppBackend.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Text;
 
-namespace LoanAppBackend.Services
-{
+    namespace LoanAppBackend.Services
+    {
     public class AuthService : IAuthService
     {
         private readonly AppDbContext _dbcontext;
@@ -74,14 +72,14 @@ namespace LoanAppBackend.Services
             return computedHash.SequenceEqual(storedHash);
         }
 
-        private String CreateToken(User user)
+        private string CreateToken(User user)
         {
             var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role),
-            };
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role),
+                };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -92,9 +90,14 @@ namespace LoanAppBackend.Services
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["JWT:ExpiresInMinutes"])),
                 signingCredentials: creds
-                );
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

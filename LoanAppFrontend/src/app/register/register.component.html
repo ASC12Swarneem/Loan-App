@@ -1,0 +1,40 @@
+<form [formGroup]="registerForm" (ngSubmit)="Register()">
+  <h1>Register</h1>
+    <label for="fullName">Full Name: </label>
+    <input formControlName="fullName" placeholder="Full Name">
+    <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+      Full Name is required!
+    </div>
+
+      <br>
+    <label for="email">Email: </label>
+    <input type="email" formControlName="email" placeholder="Enter your email" required>
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      Email is required!
+    </div>
+    <br>
+    <label for="password">Password </label>
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      Minimum 6 characters required.
+    </div>
+    <br>
+    <label for="confirmPassword">Confirm Password: </label>
+    <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" />
+    <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+      Passwords do not match.
+    </div>
+<br>
+    <select formControlName="role">
+      <option value="User">User</option>
+      <option value="Admin">Admin</option>
+    </select>
+  
+    <re-captcha 
+        siteKey="6Lf7QBsrAAAAAEfzNFBw5rTwRvZFdz5WJrzSPwcc"   
+        (resolved)="onCaptchaResolved($event)">
+    </re-captcha>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
+  

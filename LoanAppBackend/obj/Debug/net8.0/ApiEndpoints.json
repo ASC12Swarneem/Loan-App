@@ -1,8 +1,40 @@
 [
   {
+    "ContainingType": "LoanAppBackend.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "LoanAppBackend.DTO.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoanAppBackend.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDTO",
+        "Type": "LoanAppBackend.DTO.RegisterDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LoanAppBackend.Controllers.LoanController",
     "Method": "UpdateLoan",
-    "RelativePath": "{id}",
+    "RelativePath": "api/Loan/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -23,7 +55,7 @@
   {
     "ContainingType": "LoanAppBackend.Controllers.LoanController",
     "Method": "GetAdminDashboard",
-    "RelativePath": "admin-dashboard",
+    "RelativePath": "api/Loan/admin-dashboard",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -39,7 +71,43 @@
   {
     "ContainingType": "LoanAppBackend.Controllers.LoanController",
     "Method": "GetAllLoans",
-    "RelativePath": "all",
+    "RelativePath": "api/Loan/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoanAppBackend.Controllers.LoanController",
+    "Method": "ApplyLoan",
+    "RelativePath": "api/Loan/apply",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loanDto",
+        "Type": "LoanAppBackend.DTO.ApplyLoanDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoanAppBackend.Controllers.LoanController",
+    "Method": "GetMyLoans",
+    "RelativePath": "api/Loan/my-loans",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoanAppBackend.Controllers.LoanController",
+    "Method": "GetUserDashboard",
+    "RelativePath": "api/Loan/user-dashboard",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -86,74 +154,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoanAppBackend.Controllers.LoanController",
-    "Method": "ApplyLoan",
-    "RelativePath": "apply",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loanDto",
-        "Type": "LoanAppBackend.DTO.LoanApplicationDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoanAppBackend.Controllers.AuthController",
-    "Method": "Login",
-    "RelativePath": "login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginDto",
-        "Type": "LoanAppBackend.DTO.LoginDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoanAppBackend.Controllers.LoanController",
-    "Method": "GetMyLoans",
-    "RelativePath": "my-loans",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoanAppBackend.Controllers.AuthController",
-    "Method": "Register",
-    "RelativePath": "register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "registerDTO",
-        "Type": "LoanAppBackend.DTO.RegisterDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LoanAppBackend.Controllers.LoanController",
-    "Method": "GetUserDashboard",
-    "RelativePath": "user-dashboard",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

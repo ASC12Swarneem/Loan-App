@@ -1,0 +1,27 @@
+<div class="loan-form">
+    <h2>Apply for a Loan</h2>
+    <form [formGroup]="loanForm" (ngSubmit)="applyLoan()">
+      <div>
+        <label for="amount">Loan Amount</label>
+        <input id="amount" formControlName="amount" type="number" />
+      </div>
+  
+      <div>
+        <label for="termInMonths">Loan Term (Months)</label>
+        <input id="termInMonths" formControlName="termInMonths" type="number" />
+      </div>
+  
+      <div>
+        <label for="monthlyIncome">Monthly Income</label>
+        <input id="monthlyIncome" formControlName="monthlyIncome" type="number" />
+      </div>
+  
+      <div>
+        <label for="creditScore">Credit Score</label>
+        <input id="creditScore" formControlName="creditScore" type="number" />
+      </div>
+  
+      <button type="submit" [disabled]="loanForm.invalid">Apply for Loan</button>
+    </form>
+  </div>
+  
