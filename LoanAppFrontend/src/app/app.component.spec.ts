@@ -1,15 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        HttpClientTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavBarComponent
       ],
     }).compileComponents();
   });
@@ -26,10 +30,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('LoanAppFrontend');
   });
 
-  it('should render title', () => {
+  it('should render the nav bar component', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, LoanAppFrontend');
+    expect(compiled.querySelector('app-nav-bar')).toBeTruthy();
   });
 });

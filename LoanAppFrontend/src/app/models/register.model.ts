@@ -3,6 +3,6 @@ export interface Register {
     email: string;
     password: string;
     confirmPassword: string;
-    role: string; // "User" or "Admin"
+    role: string;
   }
   

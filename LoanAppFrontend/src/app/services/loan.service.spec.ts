@@ -1,16 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+  import { TestBed } from '@angular/core/testing';
 
-import { LoanService } from './loan.service';
+  import { LoanService } from './loan.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('LoanService', () => {
-  let service: LoanService;
+  describe('LoanService', () => {
+    let service: LoanService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(LoanService);
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [LoanService]
+      });
+      service = TestBed.inject(LoanService);
+    });
+
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
   });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});

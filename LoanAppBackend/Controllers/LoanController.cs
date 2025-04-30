@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanAppBackend.Controllers
 {
-    //[Microsoft.AspNetCore.Components.Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     public class LoanController : ControllerBase
@@ -21,6 +20,7 @@ namespace LoanAppBackend.Controllers
             _loanApplicationRepository = loanApplicationRepository;
         }
 
+        // Applying for loan (logged-in user)
         [HttpPost("apply")]
         [Authorize]
         public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanDTO loanDto)
@@ -43,7 +43,7 @@ namespace LoanAppBackend.Controllers
         }
 
 
-        // Get my own loans
+        // Loans for logged in user
         [HttpGet("my-loans")]
         [Authorize]
         public async Task<IActionResult> GetMyLoans()
@@ -68,7 +68,6 @@ namespace LoanAppBackend.Controllers
             return Ok(loanDtos);
         }
 
-        // 🟢 Admin only - Get all loans
         [HttpGet("all")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllLoans()
@@ -85,11 +84,7 @@ namespace LoanAppBackend.Controllers
                 Status = loan.Status,
                 AdminRemarks = loan.AdminRemarks,
                 ApplicationDate = loan.ApplicationDate,
-                //FullName = loan.User.FullName,  
-                //Email = loan.User.Email
-                //
-                // Safely access User properties using the null-conditional operator
-                FullName = loan.User?.FullName ?? "Unknown",  // Default to "Unknown" if User is null
+                FullName = loan.User?.FullName ?? "Unknown",
                 Email = loan.User?.Email ?? "Unknown"
             }).ToList();
 
@@ -130,44 +125,13 @@ namespace LoanAppBackend.Controllers
                 CreditScore = loan.CreditScore,
                 AdminRemarks = loan.AdminRemarks,
                 ApplicationDate = loan.ApplicationDate,
-                FullName = loan.User.FullName,  // Fetch FullName from the related User entity
-                Email = loan.User.Email         // Fetch Email from the related User entity
+                FullName = loan.User.FullName, 
+                Email = loan.User.Email 
             }).ToList();
 
 
             return Ok(loanDtos);
         }
-
-        //[HttpGet("admin-dashboard")]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> GetAdminDashboard([FromQuery] string? status = null)
-        //{
-        //    var userId = GetUserIdFromToken();
-        //    var loans = await _loanApplicationRepository.GetAllLoansAsync(userId);
-        //    if (!string.IsNullOrWhiteSpace(status))
-        //    {
-        //        loans = loans.Where(l => l.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
-        //    }
-        //    return Ok(loans);
-        //}
-
-
-        //[HttpGet("admin-dashboard")]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> GetAdminDashboard(string? status = null)
-        //{
-        //    var allLoans = await _loanApplicationRepository.GetAllLoansAsync();
-
-        //    if (!string.IsNullOrEmpty(status))
-        //    {
-        //        allLoans = allLoans
-        //            .Where(l => string.Equals(l.Status, status, StringComparison.OrdinalIgnoreCase))
-        //            .ToList();
-        //    }
-
-        //    return Ok(allLoans);
-        //}
-
 
 
         [HttpGet("admin-dashboard")]

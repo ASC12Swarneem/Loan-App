@@ -1,17 +1,74 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
-import { authGuard } from './auth.guard';
-
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+describe('AuthGuard', () => {
+  let guard: AuthGuard;
+  let routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        AuthGuard,
+        { provide: Router, useValue: routerSpy }
+      ]
+    });
+
+    guard = TestBed.inject(AuthGuard);
+  });
+
+  beforeEach(() => {
+    routerSpy.navigate.calls.reset(); // reset spy calls
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
+  });
+
+  it('should return true if token exists in localStorage', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('fake-token');
+    expect(guard.canActivate()).toBeTrue();
+  });
+
+  it('should navigate to login if token is missing and return false', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    expect(guard.canActivate()).toBeFalse();
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   });
 });
+
+
+// import { TestBed } from '@angular/core/testing';
+// import { Router } from '@angular/router';
+// import { AuthGuard } from './auth.guard';
+
+// describe('AuthGuard', () => {
+//   let guard: AuthGuard;
+//   let routerSpy = { navigate: jasmine.createSpy('navigate') };
+
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [
+//         AuthGuard,
+//         { provide: Router, useValue: routerSpy }
+//       ]
+//     });
+
+//     guard = TestBed.inject(AuthGuard);
+//   });
+
+//   it('should be created', () => {
+//     expect(guard).toBeTruthy();
+//   });
+
+//   it('should return true if token exists in localStorage', () => {
+//     spyOn(localStorage, 'getItem').and.returnValue('fake-token');
+//     expect(guard.canActivate()).toBeTrue();
+//   });
+
+//   it('should navigate to login if token is missing and return false', () => {
+//     spyOn(localStorage, 'getItem').and.returnValue(null);
+//     expect(guard.canActivate()).toBeFalse();
+//     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+//   });
+// });

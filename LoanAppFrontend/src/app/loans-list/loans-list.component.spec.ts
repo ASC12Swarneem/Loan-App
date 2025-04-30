@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoansListComponent } from './loans-list.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthService } from '../services/auth.service';
+import { RegisterComponent } from '../register/register.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 describe('LoansListComponent', () => {
   let component: LoansListComponent;
@@ -8,7 +12,9 @@ describe('LoansListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoansListComponent]
+      declarations: [LoansListComponent, RegisterComponent],
+      imports: [HttpClientTestingModule, RecaptchaModule],
+      providers: [AuthService]
     })
     .compileComponents();
 

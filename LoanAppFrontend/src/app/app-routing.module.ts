@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'user-dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin-dashboard', component: AdminDashboardComponent},
   { path: 'apply-loan', component: ApplyLoanComponent, canActivate: [AuthGuard] },
-  { path: 'loan-list', component: LoansListComponent}  
+  { path: 'loan-list', component: LoansListComponent }  
 ];
 
 @NgModule({

@@ -18,7 +18,11 @@ export class UserDashboardComponent {
 
   fetchLoans(): void {
     this.loanService.getUserLoans().subscribe({
-      next: (res) => this.loans = res,
+      next: (res) =>{
+        console.log('Loan response:', res); // <== Check this
+        this.loans = res;
+      },
+        //  this.loans = res,
       error: (err) => console.error('Error fetching loans', err)
     });
   }

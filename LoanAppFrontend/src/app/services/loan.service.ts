@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { LoanApplication } from '../models/loanapplication.model';
-import { ApplyLoan } from '../models/apply-loan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +11,17 @@ export class LoanService {
 
   constructor(private httpClient: HttpClient) { }
 
+
   // Endpoint to fetch user loans (User Dashboard)
+  // getUserLoans(): Observable<LoanApplication[]> {
+  //   // return this.httpClient.get<LoanApplication[]>(`${this.baseUrl}/user-dashboard`);
+  //   return this.httpClient.get<LoanApplication[]>(`${this.baseUrl}/my-loans`);
+  // }
+
   getUserLoans(): Observable<LoanApplication[]> {
-    return this.httpClient.get<LoanApplication[]>(`${this.baseUrl}/my-loans`);
+    return this.httpClient.get<any>(`${this.baseUrl}/my-loans`).pipe(
+      map(response => response.$values || []) // Extract the $values array
+    );
   }
 
   // Endpoint to apply for a loan 
@@ -22,25 +29,19 @@ export class LoanService {
     return this.httpClient.post<any>(`${this.baseUrl}/apply`, loanData);
   } 
 
-
-  updateLoanStatus(id: number, updateData: any): Observable<any> {
-    return this.httpClient.put(`https://localhost:7055/api/loan/${id}`, updateData);
-  }
-
   getAllLoans(status?: string): Observable<LoanApplication[]> {
     let params = new HttpParams();
 
-    // Add status as query param if provided
     if (status) {
       params = params.set('status', status); 
     }
 
-    // Ensure correct URL and query parameters are being passed
-    return this.httpClient.get<LoanApplication[]>(
-      `${this.baseUrl}/admin-dashboard`,
-      {
-        params,
-      }
-    );
+    // Call the API and process the response to extract the loans array
+    return this.httpClient.get<any>(`${this.baseUrl}/admin-dashboard`, { params })
+      .pipe(map(response => response.$values || []));  
+  }
+
+  updateLoanStatus(id: number, updateData: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/${id}`, updateData);
   }
 }

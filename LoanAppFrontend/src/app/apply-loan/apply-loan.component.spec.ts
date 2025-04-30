@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApplyLoanComponent } from './apply-loan.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthService } from '../services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ApplyLoanComponent', () => {
   let component: ApplyLoanComponent;
@@ -8,7 +11,9 @@ describe('ApplyLoanComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplyLoanComponent]
+      declarations: [ApplyLoanComponent],
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      providers: [AuthService]
     })
     .compileComponents();
 

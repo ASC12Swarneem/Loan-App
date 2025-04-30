@@ -23,6 +23,7 @@ export class AuthService {
       tap((res: LoginResponse) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', res.role);
+        localStorage.setItem('userId', res.userId.toString()); // Store userId if needed
       })
     );
   }

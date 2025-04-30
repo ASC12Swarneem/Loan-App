@@ -1,0 +1,102 @@
+/* Container for the entire form */
+.loan-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styles */
+  .loan-form h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  /* Form elements styles */
+  .loan-form div {
+    margin-bottom: 15px;
+  }
+  
+  /* Label styling */
+  .loan-form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: bold;
+  }
+  
+  /* Input field styling */
+  .loan-form input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f4f4f4;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .loan-form input:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #eaf7ff;
+  }
+  
+  /* Disabled button styling */
+  .loan-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Button styling */
+  .loan-form button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .loan-form button:hover {
+    background-color: #2980b9;
+  }
+  
+  .loan-form button:active {
+    background-color: #1d6f8b;
+  }
+  
+  /* Error message styling (Optional) */
+  .loan-form .error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Media Query for Responsive Design */
+  @media (max-width: 600px) {
+    .loan-form {
+      padding: 15px;
+    }
+  
+    .loan-form h2 {
+      font-size: 20px;
+    }
+  
+    .loan-form input {
+      font-size: 14px;
+    }
+  
+    .loan-form button {
+      font-size: 16px;
+    }
+  }
+  

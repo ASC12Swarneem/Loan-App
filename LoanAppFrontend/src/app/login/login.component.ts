@@ -43,9 +43,7 @@ export class LoginComponent implements OnInit{
 
     this.autService.login(this.loginForm.value).subscribe({
       next: res => {
-        console.log("Logged in Successfully!", res);
-    
-        // Role-based routing
+        console.log("Logged in Successfully!", res)
         if (res.role === 'Admin') {
           this.router.navigate(['/admin-dashboard']);
         } else {
@@ -56,17 +54,5 @@ export class LoginComponent implements OnInit{
         console.log("Login Failed", err);
       }
     });
-    
-    // this.autService.login(this.loginForm.value).subscribe({
-    //   next: res =>{
-    //     console.log("Logged in Successfully!", res);
-    //     this.router.navigate(['/user-dashboard']);
-
-    //   },
-
-    //   error: err =>{
-    //     console.log("Login Failed", err);
-    //   }
-    // })
   }
 }

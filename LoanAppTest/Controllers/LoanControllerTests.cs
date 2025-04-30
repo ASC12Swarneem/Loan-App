@@ -199,7 +199,9 @@ namespace LoanAppBackend.Tests.Controllers
 
             // Assert
             var okResult = result as OkObjectResult;
-            var filteredLoans = okResult?.Value as IEnumerable<LoanApplication>;
+            Assert.IsNotNull(okResult);
+
+            var filteredLoans = okResult?.Value as IEnumerable<LoanApplicationDTO>;
 
             Assert.IsNotNull(filteredLoans);
             Assert.AreEqual(2, filteredLoans.Count()); // should return 2: "Approved" and "approved"

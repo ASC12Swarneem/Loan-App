@@ -12,8 +12,12 @@
     
       <button type="submit" [disabled]="loginForm.invalid">Login</button>
 
+      <a class="register-link" routerLink="/register">Don't have an account? Sign Up!</a>
+
       <re-captcha 
         siteKey="6Lf7QBsrAAAAAEfzNFBw5rTwRvZFdz5WJrzSPwcc"   
         (resolved)="onCaptchaResolved($event)">
     </re-captcha>
+
+
 </form>
