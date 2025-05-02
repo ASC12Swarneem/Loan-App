@@ -286,3 +286,4 @@ C:\Users\swarneem.nandanwar\Loan App\LoanAppBackend\obj\Debug\net8.0\refint\Loan
 C:\Users\swarneem.nandanwar\Loan App\LoanAppBackend\obj\Debug\net8.0\LoanAppBackend.pdb
 C:\Users\swarneem.nandanwar\Loan App\LoanAppBackend\obj\Debug\net8.0\LoanAppBackend.genruntimeconfig.cache
 C:\Users\swarneem.nandanwar\Loan App\LoanAppBackend\obj\Debug\net8.0\ref\LoanAppBackend.dll
+C:\Users\swarneem.nandanwar\Loan App\LoanAppBackend\bin\Debug\net8.0\Newtonsoft.Json.dll

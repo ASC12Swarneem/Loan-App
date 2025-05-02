@@ -4,6 +4,8 @@ using LoanAppBackend.Models;
 using LoanAppBackend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LoanAppTest.Controllers
 {
@@ -19,9 +21,47 @@ namespace LoanAppTest.Controllers
             _authController = new AuthController(_mockAuthService.Object);
         }
 
+        //    [Test]
+        //    public async Task Register_IfRegister_ReturnOk()
+        //    {
+        //        var registerDTO = new RegisterDTO
+        //        {
+        //            FullName = "Test User",
+        //            Email = "test@ok.com",
+        //            Password = "Password123",
+        //            Role = "User"
+        //        };
+
+        //        //_mockAuthService.Setup(s => s.RegisterAsync(registerDTO)).ReturnsAsync("User registered successfully");
+
+        //        _mockAuthService
+        //.Setup(s => s.RegisterAsync(registerDTO))
+        //.ReturnsAsync("User Registered Successfully!");
+
+
+
+        //        var result = await _authController.Register(registerDTO);
+        //        Console.WriteLine(result);
+        //        var okResult = result as OkObjectResult;
+
+        //        Assert.IsNotNull(okResult);
+        //        Assert.AreEqual(200, okResult.StatusCode);  
+
+        //        //var response = okResult.Value as dynamic;
+        //        //var response = JObject.FromObject(okResult.Value);
+        //        Console.WriteLine(okResult.Value);
+        //        var response = okResult.Value as dynamic;
+        //        Assert.IsNotNull(response);
+        //        Assert.AreEqual("User registered successfully", response.message);
+        //        //Assert.AreEqual("User registered successfully", response["message"].ToString());
+
+        //    }
+
+
         [Test]
         public async Task Register_IfRegister_ReturnOk()
         {
+            // Arrange
             var registerDTO = new RegisterDTO
             {
                 FullName = "Test User",
@@ -30,26 +70,25 @@ namespace LoanAppTest.Controllers
                 Role = "User"
             };
 
-            _mockAuthService.Setup(s => s.RegisterAsync(registerDTO)).ReturnsAsync("User Registered Successfully!");
+            _mockAuthService
+                .Setup(s => s.RegisterAsync(registerDTO))
+                .ReturnsAsync("User Registered Successfully!");
 
-            
+            // Act
             var result = await _authController.Register(registerDTO);
             var okResult = result as OkObjectResult;
 
+            // Assert
             Assert.IsNotNull(okResult);
             Assert.AreEqual(200, okResult.StatusCode);
 
-            //dynamic response = okResult.Value;
-            //Assert.AreEqual("User Registered Successfully!", response.message);
+            // Deserialize anonymously returned object to dictionary
+            var responseJson = JsonConvert.SerializeObject(okResult.Value);
+            var responseDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseJson);
 
-            //dynamic response = okResult.Value;
-            //Assert.AreEqual("User Registered Successfully!", response.message);
-            //Assert.AreEqual(200, OkResult.StatusCode)
-
-            var response = okResult.Value as dynamic;
-            Assert.IsNotNull(response);
-            Assert.AreEqual("User registered successfully", response.message);
-
+            Assert.IsNotNull(responseDict);
+            Assert.IsTrue(responseDict.ContainsKey("message"));
+            Assert.AreEqual("User Registered Successfully!", responseDict["message"]);
         }
 
         [Test]
@@ -72,9 +111,10 @@ namespace LoanAppTest.Controllers
             //dynamic response = badRequest.Value;
             //Assert.AreEqual("Email already exists", response.message);
 
-            var response = badRequest.Value as dynamic;
+            //var response = badRequest.Value as dynamic;
+            var response = JObject.FromObject(badRequest.Value);
             Assert.IsNotNull(response);
-            Assert.AreEqual("Email already exists", response.message);
+            Assert.AreEqual("Email already exists", response["message"].ToString());
 
         }
 
@@ -111,6 +151,30 @@ namespace LoanAppTest.Controllers
         }
 
 
+        //[Test]
+        //public async Task Login_WhenInvalidCredentials_ReturnsUnauthorized()
+        //{
+        //    var loginDTO = new LoginDTO
+        //    {
+        //        Email = "wrong@example.com",
+        //        Password = "wrongpass"
+        //    };
+
+        //    _mockAuthService.Setup(s => s.LoginAsync(loginDTO)).ReturnsAsync("Invalid Credentials");
+
+        //    var result = await _authController.Login(loginDTO);
+        //    var unauthorized = result as UnauthorizedObjectResult;
+
+        //    Assert.IsNotNull(unauthorized);
+        //    Assert.AreEqual(401, unauthorized.StatusCode);
+
+
+        //    var response = unauthorized.Value as dynamic;
+        //    Assert.IsNotNull(response);
+        //    Assert.AreEqual("Invalid Credentials", response.message);
+
+        //}
+
         [Test]
         public async Task Login_WhenInvalidCredentials_ReturnsUnauthorized()
         {
@@ -128,12 +192,10 @@ namespace LoanAppTest.Controllers
             Assert.IsNotNull(unauthorized);
             Assert.AreEqual(401, unauthorized.StatusCode);
 
-
-            var response = unauthorized.Value as dynamic;
-            Assert.IsNotNull(response);
-            Assert.AreEqual("Invalid Credentials", response.message);
-
+            var response = JObject.FromObject(unauthorized.Value);
+            Assert.AreEqual("Invalid Credentials", response["message"]?.ToString());
         }
+
 
     }
 }

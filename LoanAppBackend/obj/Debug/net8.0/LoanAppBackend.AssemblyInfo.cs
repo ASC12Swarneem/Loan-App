@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LoanAppBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15cfe42c3a17f898820e31e561acec95867094cf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+327a98cc9ce2b286fd3741d376272457082b73a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LoanAppBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LoanAppBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
