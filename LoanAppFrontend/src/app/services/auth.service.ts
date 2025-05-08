@@ -17,16 +17,18 @@ export class AuthService {
   register(data: Register): Observable<Register> {
     return this.http.post<Register>(`${this.baseUrl}/register`, data);
   }
-
   login(credentials: Login): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, credentials).pipe(
       tap((res: LoginResponse) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', res.role);
-        localStorage.setItem('userId', res.userId.toString()); // Store userId if needed
+        localStorage.setItem('userId', res.userId.toString());
+  
+        this.router.navigate(['/user-dashboard']);
       })
     );
   }
+  
   
 
   

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoanService } from '../services/loan.service';
 
 @Component({
@@ -15,7 +15,9 @@ export class ApplyLoanComponent {
       amount: ['', [Validators.required, Validators.min(1000)]],
       termInMonths: ['', [Validators.required, Validators.min(12)]],
       monthlyIncome: ['', [Validators.required, Validators.min(20000)]],
-      creditScore: ['', [Validators.required, Validators.min(300), Validators.max(850)]]
+      creditScore: ['', [Validators.required, Validators.min(300), Validators.max(850)]],
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -26,11 +28,11 @@ export class ApplyLoanComponent {
         next: res => {
           console.log("Loan Applied!", res);
           alert("Loan applied successfully!");
-          this.loanForm.reset(); // Optional: reset the form after successful submission
+          this.loanForm.reset();
         },
         error: err => {
           console.error("Loan Application Failed!", err);
-          alert("Loan Application Failed!"); // You can customize this error message
+          alert("Loan Application Failed!");
         }
       });
     } else {

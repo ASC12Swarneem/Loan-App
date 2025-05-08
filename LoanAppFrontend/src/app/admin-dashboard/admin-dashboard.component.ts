@@ -10,7 +10,7 @@ import { LoanApplication } from '../models/loanapplication.model';
 export class AdminDashboardComponent implements OnInit {
   loans: LoanApplication[] = [];
   filterStatus: string = '';
-  isLoading: boolean = false;  // New loading state
+  isLoading: boolean = false;  
 
   constructor(private loanService: LoanService) {}
 
@@ -19,7 +19,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadLoans(): void {
-    this.isLoading = true;  // Set loading state to true before making the request
+    this.isLoading = true;
     this.loanService.getAllLoans(this.filterStatus).subscribe({
       next: (data) => {
         console.log('Loans data:', data);
@@ -33,7 +33,7 @@ export class AdminDashboardComponent implements OnInit {
         console.error('Failed to load loans', err);
       },
       complete: () => {
-        this.isLoading = false;  // Set loading state to false after the request completes
+        this.isLoading = false;
       }
     });
   }

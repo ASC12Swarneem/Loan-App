@@ -10,7 +10,6 @@
     </select>
   </label>
 
-  <!-- Display Loading State -->
   <div *ngIf="!loans.length && !isLoading">No loans found.</div>
   <div *ngIf="isLoading">Loading loans...</div>
 
@@ -45,94 +44,3 @@
     </tbody>
   </table>
 </div>
-
-
-<!-- <div class="container">
-  <h2>Admin Dashboard</h2>
-
-  <label>Filter by status:
-    <select [(ngModel)]="filterStatus" (change)="onFilterChange()">
-      <option value="">All</option>
-      <option value="Pending">Pending</option>
-      <option value="Approved">Approved</option>
-      <option value="Rejected">Rejected</option>
-    </select>
-  </label>
-
-  <table class="table table-bordered mt-3">
-    <thead>
-      <tr>
-        <th>Loan ID</th>
-        <th>Amount</th>
-        <th>Term</th>
-        <th>Status</th>
-        <th>User</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let loan of loans">
-        <td>{{ loan.id }}</td>
-        <td>{{ loan.amount }}</td>
-        <td>{{ loan.termInMonths }} months</td>
-        <td>{{ loan.status }}</td>
-        <td>{{ loan.fullName }} ({{ loan.email }})</td>
-        <td>
-          <select #statusSelect>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-          <input #remarksInput placeholder="Remarks" />
-          <button (click)="updateStatus(loan.id, statusSelect.value, remarksInput.value)">Update</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
- -->
-
-<!-- <div class="container">
-    <h2>Admin Dashboard</h2>
-  
-    <label>Filter by status:
-      <select [(ngModel)]="filterStatus" (change)="onFilterChange()">
-        <option value="">All</option>
-        <option value="Pending">Pending</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-      </select>
-    </label>
-  
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>Loan ID</th>
-          <th>Amount</th>
-          <th>Term</th>
-          <th>Status</th>
-          <th>User</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let loan of loans">
-          <td>{{ loan.id }}</td>
-          <td>{{ loan.amount }}</td>
-          <td>{{ loan.termInMonths }} months</td>
-          <td>{{ loan.status }}</td>
-          <td>{{ loan.fullName }} ({{ loan.email }})</td>
-          <td>
-            <select #statusSelect>
-              <option value="Pending">Pending</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <input #remarksInput placeholder="Remarks" />
-            <button (click)="updateStatus(loan.id, statusSelect.value, remarksInput.value)">Update</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-   -->

@@ -6,51 +6,52 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'] 
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
+[x: string]: any;
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private autService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
-
   }
 
-  onCaptchaResolved(captchaResponse: string | null) {
-    if (captchaResponse) {
+  onCaptchaResolved(token: string | null): void {
+    if (token) {
+      console.log('Captcha resolved with response:', token);
     } else {
-        console.error('Captcha response is null');
+      console.warn('Captcha resolution returned null');
     }
   }
   
+  
 
   ngOnInit(): void {
-      this.loginForm = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        
-      })
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
   }
 
-  Login(){
-    if(this.loginForm.invalid){
+  Login(): void {
+    if (this.loginForm.invalid) {
+      alert('Please fill in the form correctly.');
       return;
     }
 
-
-    this.autService.login(this.loginForm.value).subscribe({
-      next: res => {
-        console.log("Logged in Successfully!", res)
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        console.log("Logged in Successfully!", res);
         if (res.role === 'Admin') {
           this.router.navigate(['/admin-dashboard']);
         } else {
           this.router.navigate(['/user-dashboard']);
         }
       },
-      error: err => {
+      error: (err) => {
         console.log("Login Failed", err);
       }
     });

@@ -11,20 +11,12 @@ export class LoanService {
 
   constructor(private httpClient: HttpClient) { }
 
-
-  // Endpoint to fetch user loans (User Dashboard)
-  // getUserLoans(): Observable<LoanApplication[]> {
-  //   // return this.httpClient.get<LoanApplication[]>(`${this.baseUrl}/user-dashboard`);
-  //   return this.httpClient.get<LoanApplication[]>(`${this.baseUrl}/my-loans`);
-  // }
-
   getUserLoans(): Observable<LoanApplication[]> {
     return this.httpClient.get<any>(`${this.baseUrl}/my-loans`).pipe(
-      map(response => response.$values || []) // Extract the $values array
+      map(response => response.$values || []) 
     );
   }
 
-  // Endpoint to apply for a loan 
   applyLoan(loanData: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/apply`, loanData);
   } 
@@ -36,7 +28,6 @@ export class LoanService {
       params = params.set('status', status); 
     }
 
-    // Call the API and process the response to extract the loans array
     return this.httpClient.get<any>(`${this.baseUrl}/admin-dashboard`, { params })
       .pipe(map(response => response.$values || []));  
   }

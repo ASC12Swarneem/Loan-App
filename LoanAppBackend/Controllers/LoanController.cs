@@ -20,7 +20,6 @@ namespace LoanAppBackend.Controllers
             _loanApplicationRepository = loanApplicationRepository;
         }
 
-        // Applying for loan (logged-in user)
         [HttpPost("apply")]
         [Authorize]
         public async Task<IActionResult> ApplyLoan([FromBody] ApplyLoanDTO loanDto)
@@ -43,7 +42,6 @@ namespace LoanAppBackend.Controllers
         }
 
 
-        // Loans for logged in user
         [HttpGet("my-loans")]
         [Authorize]
         public async Task<IActionResult> GetMyLoans()
@@ -81,6 +79,7 @@ namespace LoanAppBackend.Controllers
                 Id = loan.Id,
                 Amount = loan.Amount,
                 TermInMonths = loan.TermInMonths,
+                MonthlyIncome = loan.MonthlyIncome,
                 Status = loan.Status,
                 AdminRemarks = loan.AdminRemarks,
                 ApplicationDate = loan.ApplicationDate,
@@ -91,7 +90,6 @@ namespace LoanAppBackend.Controllers
             return Ok(loanDtos);
         }
 
-        // Loan id
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateLoan(int id, [FromBody] UpdateLoanDTO dto)
@@ -153,9 +151,10 @@ namespace LoanAppBackend.Controllers
                 Amount = loan.Amount,
                 TermInMonths = loan.TermInMonths,
                 Status = loan.Status,
+                MonthlyIncome = loan.MonthlyIncome,
                 AdminRemarks = loan.AdminRemarks,
                 ApplicationDate = loan.ApplicationDate,
-                FullName = loan.User?.FullName ?? "Unknown", // Safely access User properties
+                FullName = loan.User?.FullName ?? "Unknown", 
                 Email = loan.User?.Email ?? "Unknown"
             }).ToList();
 

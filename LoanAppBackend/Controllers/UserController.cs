@@ -16,7 +16,6 @@ namespace LoanAppBackend.Controllers
         }
 
 
-        // Fetch All users and authorize for admin only
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
@@ -43,7 +42,6 @@ namespace LoanAppBackend.Controllers
             return Ok(user);
         }
 
-        // GET: api/User/email/{email}
         [HttpGet("email/{email}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByEmail(string email)
