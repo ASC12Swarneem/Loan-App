@@ -328,6 +328,10 @@
           "password": {
             "type": "string",
             "nullable": true
+          },
+          "captchaToken": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

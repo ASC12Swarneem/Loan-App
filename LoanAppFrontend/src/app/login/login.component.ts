@@ -16,23 +16,24 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      captchaToken: ['', Validators.required]
     });
   }
 
   onCaptchaResolved(token: string | null): void {
     if (token) {
       console.log('Captcha resolved with response:', token);
+      this.loginForm.patchValue({ captchaToken: token }); 
     } else {
       console.warn('Captcha resolution returned null');
     }
   }
   
-  
-
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      captchaToken: ['', Validators.required] 
     });
   }
 
@@ -41,6 +42,8 @@ export class LoginComponent implements OnInit {
       alert('Please fill in the form correctly.');
       return;
     }
+
+    console.log('Login payload:', this.loginForm.value);
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {

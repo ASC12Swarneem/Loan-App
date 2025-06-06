@@ -55,7 +55,8 @@ describe('AuthService', () => {
   it('should call login API, store values in localStorage, and navigate to dashboard', () => {
     const mockLoginData: Login = {
       email: 'test@test.com',
-      password: 'password'
+      password: 'password',
+      captchaToken: 'captcha-response'
     };
 
     const mockResponse: LoginResponse = {

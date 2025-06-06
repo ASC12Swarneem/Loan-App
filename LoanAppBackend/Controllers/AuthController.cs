@@ -9,10 +9,12 @@ namespace LoanAppBackend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly ICaptchaService _captchaService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ICaptchaService captchaService)
         {
             _authService = authService;
+            _captchaService = captchaService;
         }
 
         [HttpPost("register")]
@@ -31,10 +33,20 @@ namespace LoanAppBackend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {
+            if (string.IsNullOrEmpty(loginDto.CaptchaToken))
+            {
+                return BadRequest(new { message = "Captcha token is required." });
+            }
+
+            var captchaValid = await _captchaService.VerifyTokenAsync(loginDto.CaptchaToken);
+            if (!captchaValid) {
+                return BadRequest(new { message = "Captcha validation failed." });
+            }
+
             var token = await _authService.LoginAsync(loginDto);
             if (token == "Invalid Credentials")
             {
-                return Unauthorized(new { message = token }); 
+                return Unauthorized(new { message = token });
             }
 
             var user = await _authService.GetUserByEmailAsync(loginDto.Email);
@@ -49,6 +61,26 @@ namespace LoanAppBackend.Controllers
                 Role = user.Role,
                 userId = user.Id
             };
+
+
+            //    var token = await _authService.LoginAsync(loginDto);
+            //    if (token == "Invalid Credentials")
+            //    {
+            //        return Unauthorized(new { message = token }); 
+            //    }
+
+            //    var user = await _authService.GetUserByEmailAsync(loginDto.Email);
+            //    if (user == null)
+            //    {
+            //        return Unauthorized(new { message = "Invalid Credentials" });
+            //    }
+
+            //    var response = new LoginResponseDTO
+            //    {
+            //        Token = token,
+            //        Role = user.Role,
+            //        userId = user.Id
+            //    };
 
             return Ok(response);
         }

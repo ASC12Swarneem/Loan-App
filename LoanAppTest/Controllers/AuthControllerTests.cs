@@ -18,7 +18,7 @@ namespace LoanAppTest.Controllers
         public void Setup()
         {
             _mockAuthService = new Mock<IAuthService>();
-            _authController = new AuthController(_mockAuthService.Object);
+            //_authController = new AuthController(_mockAuthService.Object);
         }
 
 
