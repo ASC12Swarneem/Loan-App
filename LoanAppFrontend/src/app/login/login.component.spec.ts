@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-// Mock Router
 class RouterMock {
   navigate = jasmine.createSpy('navigate');
 }
@@ -72,7 +71,7 @@ describe('LoginComponent', () => {
     authServiceSpy.login.and.returnValue(throwError(() => mockError));
 
     component.Login();
-    tick(); // Flush observable
+    tick(); 
 
     expect(authServiceSpy.login).toHaveBeenCalledWith(component.loginForm.value);
     expect(window.alert).toHaveBeenCalledWith('Login Failed');
@@ -87,7 +86,6 @@ describe('LoginComponent', () => {
     };
 
     spyOn(localStorage, 'setItem').and.callFake((key, value) => {
-      // manually store to real localStorage for test verification
       window.localStorage.setItem(key, value);
     });
 
@@ -116,7 +114,6 @@ describe('LoginComponent', () => {
     };
 
     spyOn(localStorage, 'setItem').and.callFake((key, value) => {
-      // manually store to real localStorage for test verification
       window.localStorage.setItem(key, value);
     });
 

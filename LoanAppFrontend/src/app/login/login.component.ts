@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 [x: string]: any;
   loginForm!: FormGroup;
+  isLoading: boolean = false;
+  falseCredentials: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -38,25 +40,28 @@ export class LoginComponent implements OnInit {
   }
 
   Login(): void {
-    if (this.loginForm.invalid) {
-      alert('Please fill in the form correctly.');
-      return;
-    }
-
-    console.log('Login payload:', this.loginForm.value);
-
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        console.log("Logged in Successfully!", res);
-        if (res.role === 'Admin') {
-          this.router.navigate(['/admin-dashboard']);
-        } else {
-          this.router.navigate(['/user-dashboard']);
-        }
-      },
-      error: (err) => {
-        console.log("Login Failed", err);
-      }
-    });
+  if (this.loginForm.invalid) {
+    alert('Please fill in the form correctly.');
+    return;
   }
+
+  this.isLoading = true;
+  this.falseCredentials = false;
+
+  this.authService.login(this.loginForm.value).subscribe({
+    next: (res) => {
+      this.isLoading = false;
+      this.falseCredentials = false;
+      console.log("Logged in Successfully!", res);
+
+      const route = res.role === 'Admin' ? '/admin-dashboard' : '/user-dashboard';
+      this.router.navigate([route]);
+    },
+    error: (err) => {
+      this.isLoading = false;
+      this.falseCredentials = true;
+      console.log("Login Failed", err);
+    }
+  });
+}
 }

@@ -10,8 +10,15 @@
         Password is required.
       </div>
     
-      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button type="submit" [disabled]="loginForm.invalid" >  
+        <span *ngIf="!this.isLoading">Login</span>
+        <div class="spinner-border spinner-border-sm text-light" role="status" *ngIf="this.isLoading">        
+        </div></button>
 
+        <div *ngIf="falseCredentials" class="error-message">
+          ⚠️ Incorrect email or password. Please check your credentials.
+        </div>
+        
       <a class="register-link" routerLink="/register">Don't have an account? Sign Up!</a>
 
       <re-captcha 

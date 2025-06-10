@@ -21,7 +21,6 @@ export class ApplyLoanComponent {
     });
   }
 
-  // Apply loan method
   applyLoan(): void {
     if (this.loanForm.valid) {
       this.loanService.applyLoan(this.loanForm.value).subscribe({

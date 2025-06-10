@@ -27,14 +27,5 @@ namespace LoanAppBackend.Repository
         {
             return await _dbcontext.Users.FindAsync(id);
         }
-
-        //// Adding a user
-        //public async Task<User> RegisterUser(User user)
-        //{
-        //    _dbcontext.Users.Add(user);
-        //    await _dbcontext.SaveChangesAsync();
-        //    return user;
-
-        //}
     }
 }

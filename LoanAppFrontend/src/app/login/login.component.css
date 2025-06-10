@@ -11,7 +11,6 @@ body {
   background-color: #f7f9fc;  
 }
 
-/* Login Form */
 form {
   background: #ffffff;
   padding: 35px 40px;
@@ -25,7 +24,6 @@ form {
   margin-top: 75px;
 }
 
-/* Header Styling */
 form h1 {
   font-size: 32px;
   margin-bottom: 20px;
@@ -36,7 +34,6 @@ form h1 {
   text-transform: uppercase;
 }
 
-/* Input fields */
 form input {
   width: 100%;
   padding: 15px;
@@ -48,7 +45,6 @@ form input {
   transition: 0.3s ease-in-out;
 }
 
-/* Input focus state */
 form input:focus {
   border-color: #3498db;
   background-color: #eaf7ff;
@@ -56,14 +52,12 @@ form input:focus {
   box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
 }
 
-/* Error Message Styling */
 form div {
   color: #e74c3c;
   font-size: 12px;
   margin-bottom: 12px;
 }
 
-/* Submit Button */
 form button {
   width: 100%;
   padding: 14px;
@@ -84,19 +78,22 @@ form button:hover {
   box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
-/* Disabled Button */
 form button:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
 }
 
-/* Captcha container */
 re-captcha {
   margin-top: 20px;
   text-align: center;
 }
 
-/* Animation effects for form */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

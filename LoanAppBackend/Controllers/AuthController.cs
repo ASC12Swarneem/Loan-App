@@ -62,26 +62,6 @@ namespace LoanAppBackend.Controllers
                 userId = user.Id
             };
 
-
-            //    var token = await _authService.LoginAsync(loginDto);
-            //    if (token == "Invalid Credentials")
-            //    {
-            //        return Unauthorized(new { message = token }); 
-            //    }
-
-            //    var user = await _authService.GetUserByEmailAsync(loginDto.Email);
-            //    if (user == null)
-            //    {
-            //        return Unauthorized(new { message = "Invalid Credentials" });
-            //    }
-
-            //    var response = new LoginResponseDTO
-            //    {
-            //        Token = token,
-            //        Role = user.Role,
-            //        userId = user.Id
-            //    };
-
             return Ok(response);
         }
 

@@ -14,7 +14,7 @@ namespace LoanAppBackend.Models
         public decimal Amount { get; set; }
 
         [Required]
-        public int TermInMonths { get; set; } // Loan duration
+        public int TermInMonths { get; set; } 
 
         [Required]
         [Range(5000, double.MaxValue, ErrorMessage = "Monthly income must be at least 5000")]
@@ -24,7 +24,7 @@ namespace LoanAppBackend.Models
         [Range(625, 850, ErrorMessage = "Credit score must be between 300 and 850")]
         public int CreditScore { get; set; }
 
-        public string Status { get; set; } = "Pending"; // Pending / Approved / Rejected
+        public string Status { get; set; } = "Pending"; 
         public string? AdminRemarks { get; set; }
 
         public DateTime ApplicationDate { get; set; } = DateTime.UtcNow;

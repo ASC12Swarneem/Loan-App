@@ -11,7 +11,6 @@ describe('LoansListComponent', () => {
   let loanServiceSpy: jasmine.SpyObj<LoanService>;
 
   beforeEach(async () => {
-    // Create a mock loan service
     loanServiceSpy = jasmine.createSpyObj('LoanService', ['getAllLoans', 'getUserLoans']);
 
     loanServiceSpy.getAllLoans.and.returnValue(of([]));

@@ -27,23 +27,18 @@ namespace LoanAppBackend.Repository
 
         public async Task<IEnumerable<LoanApplication>> GetAllLoansAsync(int userId)
         {
-            //return await _dbContext.LoanApplications.Where(u => u.UserId == userId).ToListAsync();
-
             return await _dbContext.LoanApplications.Include(l => l.User).ToListAsync();
         }
 
         public async Task<LoanApplication?> GetByIdAsync(int id)
         {
-            //return await _dbContext.LoanApplications.FindAsync(id);
             return await _dbContext.LoanApplications.Include(l => l.User).FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task<IEnumerable<LoanApplication>> GetLoanByUerIdAsync(int userId)
         {
-            //return await _dbContext.LoanApplications.Where(loan => loan.UserId == userId).ToListAsync();
-
             return await _dbContext.LoanApplications
-            .Include(loan => loan.User) // This will eagerly load the related User entity
+            .Include(loan => loan.User) 
             .Where(loan => loan.UserId == userId)
             .ToListAsync();
         }

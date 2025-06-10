@@ -91,12 +91,12 @@ describe('AuthService', () => {
 
   it('should return true if token exists in localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue('fake-token');
-    expect(service.isloggedIn()).toBeTrue();
+    expect(service.hasToken()).toBeTrue();
   });
 
   it('should return false if no token in localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue(null);
-    expect(service.isloggedIn()).toBeFalse();
+    expect(service.hasToken()).toBeFalse();
   });
 
   it('should return role from localStorage', () => {
@@ -104,8 +104,9 @@ describe('AuthService', () => {
     expect(service.getRole()).toBe('Admin');
   });
 
+  // New test for getToken()
   it('should return token from localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue('test-token');
-    expect(service.getToken()).toBe('test-token');
+    expect(service.getToken()).toEqual('test-token');
   });
 });
